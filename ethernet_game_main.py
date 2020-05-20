@@ -1,4 +1,4 @@
-#PyGame_OOPs_Programming_2
+#PyGame_OOPs_Programming_8
 ##Hoping to combine skills learned so far from..
 ###PyGame Tutorials and Raspberry Pi OOPs Course
 ####using multiple files to keep things tidy and easier to use.
@@ -48,6 +48,9 @@ label           =   "new"
 ##############################Useful Variabes END###################################
 ####################################################################################
 
+
+
+
 ######sets up the initial window and environment. e.g. Background Colour, font-type, FPS rate etc. #######
 class Ethernet_Game_Window(object):
     def __init__(self, window_width=800, window_height=500, FPS=30):
@@ -69,17 +72,11 @@ class Ethernet_Game_Window(object):
 
 
 
-
+    ########This loop creates, updates and then refreshes game screen########
     def Mainloop(self):
 
         #Creates instances of a game tile objects
-
-
-        #stores all our sprites  after they've done what they are supposed to do
-        #all_sprites = pygame.sprite.Group()
-
-
-        ####Section where instances of objects are created####
+        ########Section where instances of objects are created########
         tile1       =    Tile(tile_x_position, tile_y_position, tile_width, tile_height, tile_colour, "Preamble")
         tile2       =    Tile(tile_x_position, tile_y_position, tile_width, tile_height, tile_colour, "DA")
         tile3       =    Tile(tile_x_position, tile_y_position, tile_width, tile_height, tile_colour, "SA")
@@ -88,31 +85,24 @@ class Ethernet_Game_Window(object):
         tile6       =    Tile(tile_x_position, tile_y_position, tile_width, tile_height, tile_colour, "Checksum")
 
 
-
-
-
-
-                                    #pictile_x_position, pictile_y_position, pictile_width, pictile_height
-        picTile1    =    Picture_Tile(tile_x_position,   tile_y_position,    tile_width,    tile_height)
-
-        #all_sprites.add(tile1, tile2, tile3)
-
-
+        ########Sprites group in Pygame stores and speeds up process of rendering Sprites : less lag########
         dice_sprites    = pygame.sprite.Group()
         dice1           = Dice_Roller(400, 320)
         dice_sprites.add(dice1)
 
-        winning_sprite_numbers = []
+        winning_sprite_numbers = []#attempt to create array of stored 'winning' numbers
+
         runtime = True
-        while runtime: #same as saying while runtime == True
+        while runtime: #same as saying while runtime == Tru
+
 
             self.clock.tick(self.FPS)
 
-            for event in pygame.event.get():
+            for event in pygame.event.get():#gets mouse position, mouse clicks, key presses etc
                 #print (event)
 
 
-                #returns a tuple with mouse (x,y) coordinates
+                #returns a tuple with mouse (x,y) coordinates: useful for rollover or target practice
                 position = pygame.mouse.get_pos()
                 #print ("Mouse position is currently at " + str(position))
 
@@ -129,13 +119,20 @@ class Ethernet_Game_Window(object):
                         #print("Space bar pressed.")
                         dice_roll = True
 
+                    ########detects if the letter "r" has been pressed and calls 'Roll' animation########
                     elif event.key == pygame.K_r:
                         dice1.animate()#calls the animate function on that particular object
 
-                        winning_sprite_numbers.append(dice1.current_sprite)
-                        print ("current_sprite = " ,dice1.current_sprite)
+                        #Calls the dice_roll_file attribute current_sprite which has a random number generator in it
+                        winning_sprite_numbers.append(dice1.current_sprite)#adds the random dice roll number to the winning sprite array
+
+
+                        print ("current_sprite = " ,dice1.current_sprite)#Calls the dice_roll_file attribute current_sprite which has a random number generator in it
                         print (winning_sprite_numbers)
 
+
+                        #####################################################################################################
+                        ########Checks for Current Sprite number and changes colour of corresponding tile temporarily########
 
                         if dice1.current_sprite == 1:
                             tile1 = Tile(tile_x_position, tile_y_position, tile_width, tile_height, CYAN,  "PRE")
@@ -158,13 +155,8 @@ class Ethernet_Game_Window(object):
                         elif dice1.current_sprite == 6:
                             tile6 = Tile(tile_x_position+(tile_width*5+50), tile_y_position, tile_width, tile_height, CYAN,  "Check")
 
-
-
-
-
                 else:
                     #print("Not over the tiles")
-
                     tile1 = Tile(tile_x_position                     , tile_y_position, tile_width, tile_height, tile_colour,   "Pre"       )
                     tile2 = Tile(tile_x_position  +(tile_width*1+10 ), tile_y_position, tile_width, tile_height, tile_colour,   "DA"        )
                     tile3 = Tile(tile_x_position  +(tile_height*2+20), tile_y_position, tile_width, tile_height, tile_colour,   "SA"        )
@@ -173,8 +165,20 @@ class Ethernet_Game_Window(object):
                     tile6 = Tile(tile_x_position  +(tile_height*5+50), tile_y_position, tile_width, tile_height, tile_colour,   "Check"     )
 
 
+
+
+
+
+
+
+
+
+
+                ############################################################################################################
+                ########Keeps tile highlighted even when not rolled by checking the Winning_Sprites array for historic wins########
+
                 if 1 in winning_sprite_numbers:#This shoud only work for tile 1 but apparently works for all????Gift horse???
-                    print("We got one")
+                    print("We got number 1")
                     tile1 = Tile(tile_x_position, tile_y_position, tile_width, tile_height, CYAN,  "PRE")
 
                 if 2 in winning_sprite_numbers:#This shoud only work for tile 1 but apparently works for all????Gift horse???
@@ -199,6 +203,8 @@ class Ethernet_Game_Window(object):
 
 
 
+
+                #########################################################################################################
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if tile1.isOver(position):
@@ -229,17 +235,16 @@ class Ethernet_Game_Window(object):
 
 
 
-
             #############################################Draw/Render everything starts#########################################
             ############################################################################################################
             #while loop is running then next snippet
-            #fills the window with a colour to leave a clear canvas for next set of objects
-            self.window.fill(YELLOW)
-            #all_sprites.draw(self.window)#uploads/draws all sprite objects en masse
+
+            self.window.fill(YELLOW)#fills the window with a colour to leave a clear canvas for next set of objects
+
 
 
             self.window.blit(tile1.tile_surface, [tile1.tile_x_position, tile1.tile_y_position])
-            self.window.blit(tile1.textsurface, tile1.text_position)#updates the screen with the tile surce created elsewhere
+            self.window.blit(tile1.textsurface, tile1.text_position)#updates the screen with the tile source created elsewhere
 
 
             self.window.blit(tile2.tile_surface, [tile2.tile_x_position, tile2.tile_y_position])
@@ -263,9 +268,9 @@ class Ethernet_Game_Window(object):
             self.window.blit(tile6.textsurface,   tile6.text_position)
 
 
+
             dice_sprites.draw(self.window)
             dice_sprites.update(0.25)#updates the sprite group to the surface #0.25 is a speed value passed to the function
-
 
 
 
