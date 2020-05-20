@@ -1,3 +1,4 @@
+#PyGame_OOPs_Programming_8
 # Write your code here :-)
 #https://www.youtube.com/watch?v=MYaxPa_eZS0
 #Dice Animation Project
@@ -33,7 +34,7 @@ class Dice_Roller(pygame.sprite.Sprite):
         self.is_animating = True
 
     def update(self, speed):
-        stored_current_sprite_numbers = []
+
         if self.is_animating == True:
             self.current_sprite += speed #increments value: int version of 0.25 = 1 and won't change until it hits 2.0 or 2.25
 
@@ -47,7 +48,7 @@ class Dice_Roller(pygame.sprite.Sprite):
 
                 #######Random Dice image chosen
                 RandomNumber = random.randint(1,6) #selects a random number
-                #print ("Random number = " ,self.RandomNumber)
+                print ("Random number = " ,RandomNumber)
 
                 self.current_sprite = RandomNumber #uses the random number to decide which sprite image stays highlighted
                 #print ("current_sprite = " ,self.current_sprite)
@@ -58,6 +59,8 @@ class Dice_Roller(pygame.sprite.Sprite):
 
             ####animation sequence over..... the image of the chosen sprite is secured
             self.image = self.sprites[int(self.current_sprite)] #displays the rounded integer versionof the sprite
+
+
 
 
 
