@@ -1,3 +1,4 @@
+#PyGame_OOPs_Programming_8
 # Write your code here :-)
 #ethernet_game_image/drawn objects file
 import pygame
@@ -51,7 +52,7 @@ class Picture_Tile(object):
         pygame.sprite.Sprite.__init__(self)
         self.pictile_width  = pictile_width
         self.pictile_height = pictile_height
-        self.image          = pygame.image.load("/Users/seamusmcginley/Documents/eKIT/Python_Programming/PyGAME_OOPs_Hybrids_programming_4/Test_tile_image1.png")
+        self.image          = pygame.image.load("./Test_tile_image1.png")
 
 
         self.image          = pygame.transform.scale(self.image,(self.pictile_width,self.pictile_height))#Transform and scale functions resize a .png image
@@ -70,12 +71,12 @@ def Roll_It(dice_roll):
     dice_roll = dice_roll
     rollCount = 0
 
-    dice_list =[pygame.image.load("/Users/seamusmcginley/Documents/eKIT/Python_Programming/PyGAME_OOPs_Hybrids_programming_4/Test_tile_image1.png"),
-                pygame.image.load("/Users/seamusmcginley/Documents/eKIT/Python_Programming/PyGAME_OOPs_Hybrids_programming_4/Test_tile_image2.png"),
-                pygame.image.load("/Users/seamusmcginley/Documents/eKIT/Python_Programming/PyGAME_OOPs_Hybrids_programming_4/Test_tile_image3.png"),
-                pygame.image.load("/Users/seamusmcginley/Documents/eKIT/Python_Programming/PyGAME_OOPs_Hybrids_programming_4/Test_tile_image4.png"),
-                pygame.image.load("/Users/seamusmcginley/Documents/eKIT/Python_Programming/PyGAME_OOPs_Hybrids_programming_4/Test_tile_image5.png"),
-                pygame.image.load("/Users/seamusmcginley/Documents/eKIT/Python_Programming/PyGAME_OOPs_Hybrids_programming_4/Test_tile_image6.png") ]
+    dice_list =[pygame.image.load("./Test_tile_image1.png"),
+                pygame.image.load("./Test_tile_image2.png"),
+                pygame.image.load("./Test_tile_image3.png"),
+                pygame.image.load("./Test_tile_image4.png"),
+                pygame.image.load("./Test_tile_image5.png"),
+                pygame.image.load("./Test_tile_image6.png") ]
 
 
     if rollCount +1 >= 30:#if rollCount exceed 30 then End of Index error would occur... hence the reset
